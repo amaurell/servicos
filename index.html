@@ -1,0 +1,95 @@
+<!-- // ***** Este programa está ligado direto a uma API na pasta API_02 ****** -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Registros</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<script src="app.js"></script>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container mt-3">
+        <h1 class="text-center">Gerenciador de Serviços</h1>
+        <div class="d-flex justify-content-between mb-4">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Adicionar Registro</button>
+            <div class="total-valor">
+                <strong>Total Registrado: R$ <span id="totalValor">0.00</span></strong>
+            </div>
+        </div>
+
+        <h2>Lista de Registros</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Data</th>
+                    <th>Histórico</th>
+                    <th>Cliente</th>
+                    <th>Tipo_NFe</th>
+                    <th>Valor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="lista">
+                <!-- Os registros serão gerados aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginação no final da página -->
+    <div id="pagination-container" class="mt-auto">
+        <div id="pagination">
+            <!-- Os botões de paginação serão gerados aqui -->
+        </div>
+    </div>
+
+    <!-- Modal para adicionar registro -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #343a40; color: #ffffff;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Adicionar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="registroForm">
+                        <div class="form-group">
+                            <label for="data">Data</label>
+                            <input type="date" class="form-control" id="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="historico">Histórico</label>
+                            <input type="text" class="form-control" id="historico" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente">Cliente</label>
+                            <input type="text" class="form-control" id="cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_nf">Tipo NF</label>
+                            <input type="text" class="form-control" id="tipo_nf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="valor">Valor</label>
+                            <input type="number" step="0.01" class="form-control" id="valor" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="adicionarRegistro()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></scrip>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

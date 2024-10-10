@@ -1,0 +1,109 @@
+ /* Estilos para modo escuro */
+ body {
+    background-color: #343a40; /* Fundo escuro */
+    color: #ffffff; /* Texto claro */
+}
+
+.container {
+    background-color: #495057; /* Fundo da tabela */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.table {
+    background-color: #495057; /* Fundo da tabela */
+    color: #ffffff; /* Texto claro nas células */
+}
+
+.thead-light {
+    background-color: #6c757d; /* Cabeçalho da tabela */
+    color: #ffffff; /* Texto branco no cabeçalho */
+    text-align: center; /* Centralizando cabeçalho das colunas */
+}
+
+tbody tr {
+    line-height: 1; /* Removendo espaçamento entre linhas */
+    height: 5px; /* Definindo altura da linha para 5px */
+}
+
+td, th {
+    padding: 4px !important; /* Reduzindo padding para melhor legibilidade */
+    font-size: 14px;
+    vertical-align: middle; /* Alinhamento vertical centralizado */
+    color: #ffffff; /* Texto branco nas células */
+    text-align: center; /* Alinhamento horizontal centralizado */
+}
+
+/* Alinhamento horizontal específico */
+.histórico {
+    text-align: left; /* Alinha o campo histórico à esquerda */
+}
+
+.valor {
+    color: #ffffff; /* Manter texto em branco para os valores */
+}
+
+/* Centralizar o botão Deletar */
+td .btn {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2px 5px; /* Reduzindo o padding do botão para metade */
+}
+
+.total-valor {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    color: #ffffff; /* Texto branco para totalização */
+}
+
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Espaçamento superior para separar da tabela */
+}
+
+/* Estilo dos botões de paginação */
+#pagination button {
+    background-color: #6c757d;
+    color: #ffffff; /* Texto branco nos botões */
+    border: none;
+}
+
+#pagination button:hover {
+    background-color: #adb5bd;
+}
+
+#pagination button:disabled {
+    background-color: #495057;
+    color: #ced4da;
+}
+
+/* Estilo dos botões de ação */
+.btn-primary, .btn-danger {
+    background-color: #bb86fc;
+    border-color: #bb86fc;
+    color: #000000; /* Texto preto nos botões */
+}
+
+.btn-primary:hover, .btn-danger:hover {
+    background-color: #3700b3;
+    border-color: #3700b3;
+    color: #ffffff; /* Texto branco ao passar o mouse */
+}
+
+/* Estilo específico para os inputs do modal */
+.modal-body input {
+    color: #000000; /* Cor do texto dos inputs do modal em preto */
+    background-color: #e9ecef; /* Fundo claro para inputs */
+}
+
+.modal-body label {
+    color: #ffffff; /* Cor das labels do modal em branco */
+}
+
+/* Estilizando o ícone da lixeira */
+.fa-trash-alt {
+    color: orange; /* Mudando a cor da lixeira para laranja */
+}
