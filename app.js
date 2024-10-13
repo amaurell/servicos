@@ -1,15 +1,16 @@
+// app.js
 // ***** Este programa está ligado direto a uma API na pasta API_02 ******
 
 let registros = [];
 let currentPage = 1;
 const registrosPorPagina = 19; // Alterado para 19 registros por página
-
-function renderLista() {
+alert('NÃO INSERIR DATA COM INICIO 01')
+function renderLista(list = registros) {
     const lista = document.getElementById('lista');
     lista.innerHTML = '';
     const startIndex = (currentPage - 1) * registrosPorPagina;
     const endIndex = startIndex + registrosPorPagina;
-    const registrosParaMostrar = registros.slice(startIndex, endIndex);
+    const registrosParaMostrar = list.slice(startIndex, endIndex);
 
     registrosParaMostrar.forEach(registro => {
         lista.innerHTML += `<tr>
@@ -25,12 +26,80 @@ function renderLista() {
                             </td>
                             </tr>`;
     });
-    calcularTotal();
+    calcularTotal(list); // Passa a lista filtrada para o cálculo do total
     renderPaginas();
 }
 
-function calcularTotal() {
-    const total = registros.reduce((acc, registro) => acc + registro.valor, 0);
+function aplicarFiltroAnual() {
+    const cliente = document.getElementById('filterClienteAnual').value.toLowerCase().trim();
+    const ano = document.getElementById('filterAno').value.trim();
+
+    if (!cliente || !ano) {
+        alert("Por favor, preencha todos os campos obrigatórios para o filtro anual.");
+        return; // Se os campos obrigatórios não forem preenchidos, não continue
+    }
+
+    const registrosFiltrados = registros.filter(registro => {
+        const date = new Date(registro.data);
+        const anoRegistro = date.getFullYear().toString();
+        const clienteMatch = registro.cliente.toLowerCase().includes(cliente);
+        const anoMatch = anoRegistro === ano; // Filtro de ano
+
+        return clienteMatch && anoMatch;
+    });
+
+    currentPage = 1; // Resetar para a primeira página ao aplicar filtro
+    renderLista(registrosFiltrados);
+
+    // Se não houver registros filtrados, atribui o total como zero
+    if (registrosFiltrados.length === 0) {
+        document.getElementById('totalValor').innerText = '0.00';
+    }
+
+    $('#filterModal').modal('hide'); // Fechar a modal após aplicar o filtro
+}
+
+function aplicarFiltroMensal() {
+    const cliente = document.getElementById('filterClienteMensal').value.toLowerCase().trim();
+    const mes = document.getElementById('filterMes').value;
+
+    if (!cliente || !mes) {
+        alert("Por favor, preencha todos os campos obrigatórios para o filtro mensal.");
+        return; // Se os campos obrigatórios não forem preenchidos, não continue
+    }
+
+    const [ano, mesFiltrado] = mes.split('-'); // Divide a string ano-mês
+
+    // Converte registros para datas exatas para garantir precisão no filtro
+    const registrosFiltrados = registros.filter(registro => {
+        const date = new Date(registro.data);
+        const clienteMatch = registro.cliente.toLowerCase().includes(cliente);
+
+        // Cria uma string no formato 'YYYY-MM' para o registro, ajustando o mês e dia
+        const mesRegistro = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+        // Verifica se o mês e ano são exatos
+        return clienteMatch && mesRegistro === `${ano}-${mesFiltrado}`;
+    });
+
+    currentPage = 1; // Resetar para a primeira página ao aplicar filtro
+    renderLista(registrosFiltrados);
+
+    // Se não houver registros filtrados, atribui o total como zero
+    if (registrosFiltrados.length === 0) {
+        document.getElementById('totalValor').innerText = '0.00';
+    }
+
+    $('#filterModal').modal('hide'); // Fechar a modal após aplicar o filtro
+}
+
+function calcularTotal(filteredRecords) {
+    let total = 0;
+    if (filteredRecords && filteredRecords.length > 0) {
+        total = filteredRecords.reduce((acc, registro) => acc + registro.valor, 0);
+    } else {
+        total = registros.reduce((acc, registro) => acc + registro.valor, 0);
+    }
     document.getElementById('totalValor').innerText = total.toFixed(2);
 }
 
@@ -45,7 +114,7 @@ function renderPaginas() {
         button.className = 'btn mx-1';
         button.onclick = () => {
             currentPage = i;
-            renderLista();
+            renderLista(); // Render lista do estado atual
         };
         if (i === currentPage) {
             button.disabled = true;
