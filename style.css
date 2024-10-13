@@ -1,5 +1,6 @@
- /* Estilos para modo escuro */
- body {
+/* style.css */
+/* Estilos para modo escuro */
+body {
     background-color: #343a40; /* Fundo escuro */
     color: #ffffff; /* Texto claro */
 }
