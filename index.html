@@ -1,11 +1,10 @@
-<!-- // ***** Este programa está ligado direto a uma API na pasta API_02 ****** -->
-
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Registros</title>
+    <title>Gerenciador de Serviços</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -14,14 +13,15 @@
 <body class="d-flex flex-column min-vh-100">
     <div class="container mt-3">
         <h1 class="text-center">Gerenciador de Serviços</h1>
-        <div class="d-flex justify-content-between mb-4">
+            <div class="d-flex justify-content-between mb-4">
             <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Adicionar Registro</button>
+         
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#filterModal">Filtrar Registros</button>
             <div class="total-valor">
                 <strong>Total Registrado: R$ <span id="totalValor">0.00</span></strong>
             </div>
         </div>
 
-        <h2>Lista de Registros</h2>
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
@@ -37,6 +37,50 @@
                 <!-- Os registros serão gerados aqui -->
             </tbody>
         </table>
+    </div>
+
+    <!-- Modal para filtrar registros -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #343a40; color: #ffffff;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filtrar Registros</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="filterForm">
+                        <h5>FILTRO ANUAL</h5>
+                        <div class="form-group">
+                            <label for="filterClienteAnual">Cliente <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="filterClienteAnual" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="filterAno">Ano <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="filterAno" required>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>FILTRO MENSAL</h5>
+                            <div class="form-group">
+                                <label for="filterClienteMensal">Cliente <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="filterClienteMensal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="filterMes">Mês <span class="text-danger">*</span></label>
+                                <input type="month" class="form-control" id="filterMes" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="aplicarFiltroAnual()">Filtrar Anual</button>
+                    <button type="button" class="btn btn-primary" onclick="aplicarFiltroMensal()">Filtrar Mensal</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Paginação no final da página -->
@@ -88,7 +132,27 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></scrip>
+    <!-- Modal de erro -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #dc3545; color: #ffffff;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Erro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Escolha outro dia.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
