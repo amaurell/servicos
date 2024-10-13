@@ -124,7 +124,7 @@ function renderPaginas() {
 }
 
 async function getRegistros() {
-    const response = await fetch('http://185.218.125.113:3000/registros');
+    const response = await fetch('http://XXX.XXX.XXX:3000/registros');
     registros = await response.json();
 
     registros.sort((a, b) => new Date(b.data) - new Date(a.data));
